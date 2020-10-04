@@ -23,8 +23,5 @@ function roomtUsers(room){
   return users.filter(user => user.room == room);
 }
 
-function userTyping(id){
-  return user.find(user => user.id == id);
-}
 
 module.exports = {userJoin, currentUser, userLeaves, roomtUsers};

@@ -39,21 +39,13 @@ chatForm[0].addEventListener('submit',(e) => {
 });
 
 //Typing message
-chatForm[0].addEventListener('keydown',(e) => {
-  socket.emit('usertype',typemsg);
+document.getElementById("msg").addEventListener('keydown',(e) => {
+  socket.emit('typing'," is typing...");
 });
 
-function onKeyDownNotEnter(){
-  if(typing == false) {
-    typing = true
-    socket.emit(typingMessage);
-    timeout = setTimeout(timeoutFunction, 5000);
-  } else {
-    clearTimeout(timeout);
-    timeout = setTimeout(timeoutFunction, 5000);
-  }
-}
-
+socket.on('typing',(msg) => {
+  outputTyping(msg);
+})
 //Output message to DOM
 function outputMessage(message){
   const div = document.createElement("div");
@@ -63,7 +55,10 @@ function outputMessage(message){
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-function timeoutFunction(){
-  typing = false;
-  socket.emit(noLongerTypingMessage);
+function outputTyping(msg){
+  var div = document.createElement("div");
+  div.classList.add('typing');
+  div.innerHTML = msg;
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
 }
