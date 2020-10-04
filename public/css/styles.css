@@ -178,6 +178,12 @@ a {
 	width: 100%;
 }
 
+.typing{
+	padding: 30px;
+	max-height: 500px;
+	overflow-y: scroll;
+}
+
 @media (max-width: 700px) {
 	.chat-main {
 		display: block;
