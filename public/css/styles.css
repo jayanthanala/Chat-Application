@@ -106,6 +106,10 @@ a {
 	margin-bottom: 7px;
 }
 
+#typing{
+	text-align: center;
+}
+
 .chat-messages .message .meta span {
 	color: #777;
 }

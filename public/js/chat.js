@@ -2,8 +2,7 @@ const chatForm = $("#chat-form");
 const chatMessages = document.querySelector(".chat-messages");
 var userList = document.getElementById("users");
 var roomName = document.getElementById("room-name");
-var typing = false;
-var timeout = undefined;
+var typing = document.getElementById("typing");
 
 
 
@@ -33,19 +32,34 @@ chatForm[0].addEventListener('submit',(e) => {
   //emit message to server
   socket.emit('chatmsg',msg);
 
+
   //clearing input feild
   $("#msg").val('');
   $("#msg").focus();
 });
 
 //Typing message
-document.getElementById("msg").addEventListener('keydown',(e) => {
-  socket.emit('typing'," is typing...");
+// document.getElementById("msg").addEventListener('keydown',(e) => {
+//   socket.emit('typing'," is typing...");
+// });
+
+document.getElementById("msg").addEventListener("keydown", () =>  {
+socket.emit("typing", {message: " is typing..."  });
 });
 
-socket.on('typing',(msg) => {
-  outputTyping(msg);
-})
+socket.on("notifyTyping", data  =>  {
+typing.innerText  =  data.message;
+console.log(data.message);
+});
+//stop typing
+document.getElementById("msg").addEventListener("keyup", () =>  {
+socket.emit("stopTyping", "");
+});
+
+socket.on("notifyStopTyping", () =>  {
+typing.innerText  =  "";
+});
+
 //Output message to DOM
 function outputMessage(message){
   const div = document.createElement("div");
@@ -55,10 +69,10 @@ function outputMessage(message){
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-function outputTyping(msg){
-  var div = document.createElement("div");
-  div.classList.add('typing');
-  div.innerHTML = msg;
-  chatMessages.appendChild(div);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-}
+// function outputTyping(msg){
+//   var div = document.createElement("div");
+//   div.classList.add('typing');
+//   div.innerHTML = msg;
+//   chatMessages.appendChild(div);
+//   chatMessages.scrollTop = chatMessages.scrollHeight;
+// }

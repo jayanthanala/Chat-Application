@@ -55,11 +55,16 @@ io.on('connection',socket => {
     }
   });
 
-  socket.on('typing',(typemsg) => {
+  socket.on("typing", data => {
     const user = currentUser(socket.id);
-    socket.broadcast.to(user.room).emit('typing',user.username + typemsg);
+    socket.broadcast.to(user.room).emit("notifyTyping", { message: `${user.username}`+data.message });
   });
-  
+
+  socket.on("stopTyping", () => {
+    const user = currentUser(socket.id);
+    socket.broadcast.to(user.room).emit("notifyStopTyping");
+  });
+
   //listen for chat message
   socket.on('chatmsg',(msg) => {
     const user = currentUser(socket.id);
