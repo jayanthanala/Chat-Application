@@ -4,7 +4,7 @@ const socket = require('socket.io');
 const formatMessage = require("./utils/message.js");
 const {userJoin, currentUser, userLeaves, roomtUsers, userTyping} = require("./utils/user.js");
 
-//css and ejs
+///css and ejs
 app.use(express.static(__dirname + '/public'));
 app.set("view engine","ejs");
 
