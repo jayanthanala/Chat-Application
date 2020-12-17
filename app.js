@@ -30,7 +30,7 @@ io.on('connection',socket => {
   socket.on('joinRoom',({username,room}) => {
     const user = userJoin(socket.id,username,room)
     socket.join(user.room);
-    //Welcome Current User (Message to the connected client)
+    //Welcome Current User (Message to the connected client)//
     socket.emit('message',formatMessage('Bot','Welcome to ChartCOD!'));
     //Broadcast when a user Connections (Message to all the clients already connected)
     socket.broadcast.to(user.room).emit('message',formatMessage('Bot',`${user.username} has joined`));
