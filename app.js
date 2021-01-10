@@ -8,7 +8,7 @@ const {userJoin, currentUser, userLeaves, roomtUsers, userTyping} = require("./u
 app.use(express.static(__dirname + '/public'));
 app.set("view engine","ejs");
 
-//routes
+//route
 app.get("/",(req,res) => {
   res.render("home");
 });
