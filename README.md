@@ -1,2 +1,2 @@
 # Chat-Application
-Web chat portal using socket.io and backend technologies like Nodejs, expressjs.
+Web chat portal using socket.io and backend technologies like Nodejs, expressjs
